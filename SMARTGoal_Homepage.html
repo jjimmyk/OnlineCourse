@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>SMART Goal Course</title>
+    <link rel="stylesheet" href="SMARTGoal_Styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style type="text/css">
+        body { background: rgb(91, 170, 216) !important; };
+    </style>
+
+    <script>
+        //Declare userResponses as an empty array. I'll store the users' input here.
+        var userResponses=[];
+
+        //Define the function loadData.
+        function loadData()
+        {   //Point fc to the database SMARTGoalsCourse.
+            let fc = firebase.database().ref('SMARTGoalsCourse');
+
+            //Pull data from the Firebase database SMARTGoalCourse and store it in userResponses.
+            fc.on("value", function(retrieve) {
+  
+            userResponses = retrieve.val();
+    
+
+})
+        }
+        
+
+        //Define the function login, called when user presses "Submit" after entering name.
+        //Set variable name to the string entered by the user.
+        //Define the JSON object user, containing the one property for each respective value input by the user.
+        function login()
+        {
+            const name = document.getElementById("name").value;
+            let user= {
+                name: name,
+                questions:[0,0,0,0,0,0,0],
+                summativeQuestion:[0,0,0],
+                propCorrect:0};
+                //Add user to userResponses.
+                userResponses.push(user);
+                //Update Firebase to contain userResponses.
+                dbLocation.set(userResponses);
+                //Take the user to the next page to start the course!
+                window.location.replace("SMARTGoal_Page0.html");
+
+        }
+    </script>
+  </head>
+  
+  <body onload="loadData()">
+    
+    	
+    
+   <h1>FutuRoots</h1>
+
+   <p>&nbsp;</p>
+
+   <div><h2 class="text-center">Module 1: Set SMART Goals.</h2></div>
+<ul>
+    <li class="center"><b>Learning Goal 1</b>: Explain what the SMART Goal acronym stands for and why setting SMART Goals is beneficial.</li>
+    <p>&NonBreakingSpace;</p>
+    <li class="center"><b>Learning Goal 2</b>: Distinguish goals that are specific and measurable from those that aren't.</li>
+    <p>&NonBreakingSpace;</p>
+    <li class="center"><b>Learning Goal 3</b>: Distinguish goals that are attainable, relevant, and time-based from those that aren't.</li>
+    <p>&NonBreakingSpace;</p>
+    <li class="center"><b>Learning Goal 4</b>: Set an appropriate SMART Goal for a character given a realistic context.</li>
+</ul>
+
+<p>&nbsp;</p>
+
+   <p class="text-center">Hello there! I'm glad you could join us.</p>
+
+   <p class="text-center">Do you think that your brain grows when you exercise it?</p>
+
+   <p class="text-center">Or, does your brain stay the same no matter what you do?</p>
+
+   <p class="text-center">Keep these questions in mind as you watch the below video.</p>
+
+<iframe class="center" width="560" height="315" src="https://www.youtube.com/embed/rf8FX2sI3gU" 
+   title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+   allowfullscreen>
+</iframe>
+
+<p class="text-center">&copy; Khan Academy 2018</p>
+
+<p>&nbsp;</p>
+
+<p class="text-center">OK, so our brains grow.</p>
+
+<p class="text-center">But how can we <i>direct</i> our brains' growth?</p>
+
+<p class="text-center">Let's learn.</p>
+
+<p class="text-center">Before we begin, please give your name below.</p>
+
+<form class="center">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+  </form>
+
+  <p>&nbsp;</p>
+
+  <button class="center" onClick="login()">Submit</button>
+
+
+
+
+    
+    
+    
+    
+
+
+
+    
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-database.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyAHtYFhBd1oDoRsesJpF8EkTRgqupO9bWs",
+    authDomain: "smartgoalscourse.firebaseapp.com",
+    projectId: "smartgoalscourse",
+    storageBucket: "smartgoalscourse.appspot.com",
+    messagingSenderId: "514752344356",
+    appId: "1:514752344356:web:16159827e0cac7c8e8c3b1",
+    measurementId: "G-T9M8HF0F5M",
+    databaseURL:"https://smartgoalscourse-default-rtdb.firebaseio.com/"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+  //Set the database location as SMARTGoalsCourse in Firebase.
+  let dbLocation = firebase.database().ref('SMARTGoalsCourse');
+  </script>
+   
+  </body>
+  
+</html>
